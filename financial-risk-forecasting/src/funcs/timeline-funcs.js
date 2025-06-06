@@ -1,9 +1,16 @@
 
 // Finds the smallest and largest dates.
-export function getBoundaryDates(expStartDates, expEndDates, accStartDates, accEndDates) {
+export function getBoundaryDates(tasks) {
     let smallestDate = new Date(8640000000000000);
     let largestDate = new Date(-8640000000000000);
-    const allDates = [...expStartDates, ...expEndDates, ...accStartDates, ...accEndDates];
+    const allDates = [];
+
+    for (let task of tasks) {
+        if (task.expStartDate) allDates.push(new Date(task.expStartDate));
+        if (task.expEndDate) allDates.push(new Date(task.expEndDate));
+        if (task.accStartDate) allDates.push(new Date(task.accStartDate));
+        if (task.accEndDate) allDates.push(new Date(task.accEndDate));
+    }
 
     for (let date of allDates) {
         if (date < smallestDate) smallestDate = date;
@@ -14,19 +21,14 @@ export function getBoundaryDates(expStartDates, expEndDates, accStartDates, accE
 }
 
 // Scales the expected start/end and actual start/end dates for a task for it to be placed on the timeline.
-export function getScaledDatePercentages(smallestDate,
-                                         boundaryDatesDifference,
-                                         expStartDate,
-                                         expEndDate,
-                                         accStartDate,
-                                         accEndDate
-) {
-    const expLeftMargin = (100 * (expStartDate - smallestDate) / boundaryDatesDifference).toFixed(3);
-    const expWidth = (100 * (expEndDate - expStartDate + 1) / boundaryDatesDifference).toFixed(3);
-    const accLeftMargin = (100 * (accStartDate - smallestDate) / boundaryDatesDifference).toFixed(3);
-    const accWidth = (100 * (accEndDate - accStartDate + 1) / boundaryDatesDifference).toFixed(3);
-
-    return {expLeftMargin, expWidth, accLeftMargin, accWidth}
+export function getScaledDatePercentages(smallestDate, largestDate, tasks) {
+    const boundaryDatesDifference = largestDate - smallestDate + 1;
+    for (let task of tasks) {
+        task.expLeftMargin = (100 * (task.expStartDate - smallestDate) / boundaryDatesDifference).toFixed(3);
+        task.expWidth = (100 * (task.expEndDate - task.expStartDate + 1) / boundaryDatesDifference).toFixed(3);
+        task.accLeftMargin = (100 * (task.accStartDate - smallestDate) / boundaryDatesDifference).toFixed(3);
+        task.accWidth = (100 * (task.accEndDate - task.accStartDate + 1) / boundaryDatesDifference).toFixed(3);
+    }
 }
 
 // Sorts the tasks in ascending order (in terms of their expected start dates).
