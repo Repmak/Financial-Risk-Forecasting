@@ -1,13 +1,32 @@
 
-.gantt-chart {
-    /*background-image:*/
-    /*    linear-gradient(to right, rgba(0, 0, 255, 1) 3px, transparent 2px),*/
-    /*    linear-gradient(to bottom, rgba(0, 0, 255, 1) 3px, transparent 2px);*/
-    display: flex;
-    flex-direction: column;
+/*.gantt-chart {*/
+/*    !*background-image:*!*/
+/*    !*    linear-gradient(to right, rgba(0, 0, 255, 1) 3px, transparent 2px),*!*/
+/*    !*    linear-gradient(to bottom, rgba(0, 0, 255, 1) 3px, transparent 2px);*!*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+
+/*.task-timeline-box {*/
+/*    background-color: #037571;*/
+/*    color: aliceblue;*/
+/*}*/
+
+
+.date-markers {
+  display: flex;
+  justify-content: space-between; /* spreads children evenly, first at start, last at end */
+  align-items: center; /* vertically center if needed */
+  width: 100%; /* make sure it takes full width */
+  padding: 0; /* remove default padding if any */
+  margin: 0; /* remove default margin if any */
 }
 
-.task-timeline-box {
-    background-color: #037571;
-    color: aliceblue;
+.date-markers .date-marker {
+    color: red;
+}
+
+.task-box {
+  color: blue;
+  background: lightblue;
 }

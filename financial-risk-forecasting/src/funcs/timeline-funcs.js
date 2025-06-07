@@ -1,4 +1,11 @@
 
+// Sets d to date, but at midnight.
+export const getMidnightDate = (date) => {
+  const d = new Date(date);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
 // Finds the smallest and largest dates.
 export function getBoundaryDates(tasks) {
     let smallestDate = new Date(8640000000000000);
